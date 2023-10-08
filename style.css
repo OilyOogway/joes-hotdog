@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.order-summary {
+    max-width: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.subtotal {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.discount, .tax, .subtotalDiscount, .total {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #e74c3c;
+}

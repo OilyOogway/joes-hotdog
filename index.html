@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Joe's Hotdog</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div class="order-summary">
+        <h1>Joe's Hotdog Stand</h1>
+        <div class="order-details">
+            <p id="hotdog-item" class="item">Hotdog X3</p>
+            <p id="hotdog-price">$0.00</p>
+            <p id="fries-item" class="item">French Fries X2</p>
+            <p id="fries-price">$0.00</p>
+            <p id="drinks-item" class="item">Drinks X1</p>
+            <p id="drinks-price">$0.00</p>
+            <p id="subtotal-item" class="item subtotal">Subtotal</p>
+            <p id="subtotal-price">$0.00</p>
+            <p id="discount-item" class="item discount">Discount</p>
+            <p id="discount-price">$0.00</p>
+            <p id="subtotalDiscount-item" class="item subtotalDiscount">Subtotal after Discount</p>
+            <p id="subtotalDiscount-price">$0.00</p>
+            <p id="tax-item" class="item tax">Tax amount</p>
+            <p id="tax-price">$0.00</p>
+            <p id="total-item" class="item total">Final Total</p>
+            <p id="total-price">$0.00</p>
+        </div>
+    </div>
+    <script>
+
+
+        function formatCurrency(num) {
+
+            const roundedNum = Math.round(num * 100) / 100;
+            const currencyString = roundedNum.toString();
+            const parts = currencyString.split(".");
+
+            if (parts.length === 1) {
+                return "$" + currencyString + ".00";
+            } else if (parts[1].length === 1) {
+                return "$" + currencyString + "0";
+            } else {
+                return "$" + currencyString;
+            }
+        }
+
+        // Constants for price of each item
+        const hotdog = 3.75, french_fries = 3.0, drinks = 2.5;
+
+        // Using prompt to get users' number of hotdogs, fries, and sodas
+        numDogs = prompt("How many hotdogs do you want?");
+        numFries = prompt("How many French Fries do you want?");
+        numSoda = prompt("How many sodas do you want?");
+
+        // Calculation of subtotal
+        subtotal = numDogs * hotdog + numFries * french_fries + numSoda * drinks;
+
+        //Joe's special Offer
+        discount = 0;
+        cal_discount = (num) => {
+            discount = subtotal * 0.1;
+            subtotal -= discount;
+        };
+
+        //Mass Tax
+        tax_amt = 0;
+        cal_tax = (num) => {
+            tax_amt = num * 0.0625;
+            subtotal += tax_amt;
+        };
+
+        //Select all elements so that we do not have to use document.write
+        const hotdogItem = document.getElementById("hotdog-item");
+        const hotdogPrice = document.getElementById("hotdog-price");
+        const friesItem = document.getElementById("fries-item");
+        const friesPrice = document.getElementById("fries-price");
+        const drinksItem = document.getElementById("drinks-item");
+        const drinksPrice = document.getElementById("drinks-price");
+        const subtotalItem = document.getElementById("subtotal-item");
+        const subtotalPrice = document.getElementById("subtotal-price");
+        const discountItem = document.getElementById("discount-item");
+        const discountPrice = document.getElementById("discount-price");
+        const subtotalDiscountItem = document.getElementById("subtotalDiscount-item");
+        const subtotalDiscountPrice = document.getElementById("subtotalDiscount-price");
+        const taxItem = document.getElementById("tax-item");
+        const taxPrice = document.getElementById("tax-price");
+        const totalItem = document.getElementById("total-item");
+        const totalPrice = document.getElementById("total-price");
+
+        //This changes the default values of the $0.00 into the values we actually want
+        hotdogItem.innerHTML = `Hotdog X${numDogs}`;
+        hotdogPrice.innerHTML = `${formatCurrency(numDogs * hotdog)}`;
+
+        friesItem.innerHTML = `French Fries X${numFries}`;
+        friesPrice.innerHTML = `${formatCurrency(numFries * french_fries)}`;
+
+        drinksItem.innerHTML = `Drinks X${numSoda}`;
+        drinksPrice.innerHTML = `${formatCurrency(numSoda * drinks)}`;
+
+        subtotalItem.innerHTML = "Subtotal";
+        subtotalPrice.innerHTML = `${formatCurrency(subtotal)}`;
+
+        if (subtotal >= 25) {
+            cal_discount(subtotal);
+            discountItem.innerHTML = "Discount";
+            discountPrice.innerHTML = `${formatCurrency(discount)}`;
+        }
+
+        subtotalDiscountItem.innerHTML = "Subtotal after Discount";
+        subtotalDiscountPrice.innerHTML = `${formatCurrency(subtotal)}`;
+
+        cal_tax(subtotal);
+        taxItem.innerHTML = "Tax amount";
+        taxPrice.innerHTML = `${formatCurrency(tax_amt)}`;
+
+        totalItem.innerHTML = "Final Total";
+        totalPrice.innerHTML = `${formatCurrency(subtotal)}`;
+    </script>
+</body>
+
+</html>
